@@ -23,7 +23,6 @@ func testLikedListStack() {
 	s.Pop()
 
 	fmt.Println(s.Peek())
-
 	util.DumpLinkedListStack(s)
 }
 
@@ -41,6 +40,17 @@ func testSliceStack() {
 	s.Pop()
 
 	fmt.Println(s.Peek())
+	util.DumpSliceStack(s)
 
+	s.Pop()
+	s.Pop()
+
+	fmt.Println(s.Peek())
+	util.DumpSliceStack(s)
+
+	s.Push(1)
+	s.Push(2)
+
+	fmt.Println(s.Peek())
 	util.DumpSliceStack(s)
 }

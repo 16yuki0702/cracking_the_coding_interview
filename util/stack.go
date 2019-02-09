@@ -6,77 +6,95 @@ import (
 )
 
 type LinkedListStack struct {
-	Stack *list.List
+	stack *list.List
 }
 
 func NewLinkedListStack() *LinkedListStack {
 	return &LinkedListStack{
-		Stack: list.New(),
+		stack: list.New(),
 	}
 }
 
 func (s *LinkedListStack) Push(v interface{}) {
-	s.Stack.PushBack(v)
+	s.stack.PushBack(v)
 }
 
 func (s *LinkedListStack) Pop() interface{} {
-	top := s.Stack.Back()
+	top := s.stack.Back()
 	res := top
-	s.Stack.Remove(top)
+	s.stack.Remove(top)
 	return res
 }
 
 func (s *LinkedListStack) Peek() interface{} {
-	return s.Stack.Back()
+	return s.stack.Back()
 }
 
 func DumpLinkedListStack(s *LinkedListStack) {
-	for e := s.Stack.Back(); e != nil; e = e.Prev() {
+	for e := s.stack.Back(); e != nil; e = e.Prev() {
 		fmt.Println(e.Value)
 	}
 }
 
 type SliceStack struct {
-	Stack []int
+	stack    []int
+	minStack []int
 }
 
 func NewSliceStack() *SliceStack {
 	return &SliceStack{
-		Stack: make([]int, 0),
+		stack:    make([]int, 0),
+		minStack: make([]int, 0),
 	}
 }
 
 func (s *SliceStack) Push(v int) {
-	s.Stack = append(s.Stack, v)
+	s.stack = append(s.stack, v)
+	if v <= s.Min() {
+		s.minStack = append(s.minStack, v)
+	}
 }
 
 func (s *SliceStack) Pop() int {
-	length := len(s.Stack)
+	length := len(s.stack)
 	if length == 0 {
 		return -1
 	}
 
-	res := s.Stack[length-1]
-	if length == 1 {
-		s.Stack = nil
-	} else {
-		s.Stack = s.Stack[:length-1]
+	res := s.stack[length-1]
+	s.stack = s.stack[:length-1]
+
+	if res == s.Min() {
+		s.minStack = s.minStack[:len(s.minStack)-1]
 	}
 
 	return res
 }
 
 func (s *SliceStack) Peek() int {
-	length := len(s.Stack)
+	length := len(s.stack)
 	if length == 0 {
 		return -1
 	}
-	return s.Stack[length-1]
+	return s.stack[length-1]
+}
+
+func (s *SliceStack) Min() int {
+	min := 0
+	length := len(s.minStack)
+
+	if length == 0 {
+		min = int(^uint(0) >> 1)
+	} else {
+		min = s.minStack[length-1]
+	}
+
+	return min
 }
 
 func DumpSliceStack(s *SliceStack) {
-	i := len(s.Stack)
+	i := len(s.stack)
 	for top := i - 1; 0 <= top; top = top - 1 {
-		fmt.Println(s.Stack[top])
+		fmt.Println(s.stack[top])
 	}
 }
