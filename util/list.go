@@ -35,6 +35,20 @@ func SequenceList() *list.List {
 	return l
 }
 
+func PartitionList() *list.List {
+	l := list.New()
+
+	l.PushBack(3)
+	l.PushBack(5)
+	l.PushBack(8)
+	l.PushBack(5)
+	l.PushBack(10)
+	l.PushBack(2)
+	l.PushBack(1)
+
+	return l
+}
+
 func DumpList(l *list.List) {
 	for e := l.Front(); e != nil; e = e.Next() {
 		fmt.Println(e.Value)
