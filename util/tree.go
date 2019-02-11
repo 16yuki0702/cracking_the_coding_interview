@@ -26,14 +26,6 @@ func (n *Node) AddNode(child *Node) {
 	n.Children = append(n.Children, child)
 }
 
-type Tree struct {
-	Root Node
-}
-
-func NewTree() *Tree {
-	return &Tree{}
-}
-
 type Graph struct {
 	Nodes []*Node
 }
@@ -46,4 +38,28 @@ func NewGraph() *Graph {
 
 func (g *Graph) AddGraph(n *Node) {
 	g.Nodes = append(g.Nodes, n)
+}
+
+type TreeNode struct {
+	Number int
+	Right  *TreeNode
+	Left   *TreeNode
+}
+
+func NewTreeNode(number int) *TreeNode {
+	return &TreeNode{
+		Number: number,
+		Right:  nil,
+		Left:   nil,
+	}
+}
+
+type Tree struct {
+	Root *TreeNode
+}
+
+func NewTree(root *TreeNode) *Tree {
+	return &Tree{
+		Root: root,
+	}
 }
