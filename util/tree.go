@@ -63,3 +63,19 @@ func NewTree(root *TreeNode) *Tree {
 		Root: root,
 	}
 }
+
+func CreateMinimalBST(seed []int) *TreeNode {
+	return createMinimalBST(seed, 0, len(seed))
+}
+
+func createMinimalBST(seed []int, start, end int) *TreeNode {
+	if end < start {
+		return nil
+	}
+	mid := (start + end) / 2
+	n := NewTreeNode(mid)
+	n.Left = createMinimalBST(seed, start, mid-1)
+	n.Right = createMinimalBST(seed, mid+1, end)
+
+	return n
+}
