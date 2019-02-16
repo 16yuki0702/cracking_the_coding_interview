@@ -92,6 +92,18 @@ func (s *SliceStack) Min() int {
 	return min
 }
 
+func (s *SliceStack) IsEmpty() bool {
+	length := len(s.stack)
+	if length == 0 {
+		return true
+	}
+	return false
+}
+
+func (s *SliceStack) Size() int {
+	return len(s.stack)
+}
+
 func DumpSliceStack(s *SliceStack) {
 	i := len(s.stack)
 	for top := i - 1; 0 <= top; top = top - 1 {
